@@ -12,12 +12,6 @@
   display: block;
 }
 
-.nav-item:hover,
-.nav-item:active,
-.nav-item:active {
-  background: #40a4c85d;
-}
-
 .nav-item a:hover,
 .nav-item a:active,
 .nav-item a:active {

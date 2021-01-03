@@ -1,0 +1,89 @@
+.sidedrawer {
+  position: fixed;
+  width: 400px;
+  max-width: 70%;
+  background-color: #4b6065;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-out;
+  display: flex;
+  flex-flow: column;
+}
+
+.sidedrawer a:first-child {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.sidedrawer a {
+  display: inline-block;
+  margin-left: 37px;
+  color: white;
+  cursor: pointer;
+  font-size: 30px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.sidedrawer a:hover,
+.sidedrawer a:active {
+  color: #40a4c8;
+}
+
+.open {
+  transform: translateY(0);
+}
+
+.close {
+  transform: translateX(-100%);
+}
+
+.btn-x {
+  color: white;
+  margin-left: 220px;
+  border: none;
+  background-color: inherit;
+  font-size: 25px;
+  cursor: pointer;
+  font-weight: lighter;
+}
+
+.btn-x:hover,
+.btn-x:visited {
+  background-color: mediumspringgreen;
+  border: none;
+  border-radius: 20px;
+}
+
+.logo-side {
+  padding: 16px 20px;
+}
+
+.men-x {
+  position: relative;
+  display: inline-block;
+}
+
+@media (max-width: 504px) {
+  .sidedrawer {
+    width: 350px;
+  }
+  .sidedrawer button {
+    margin-left: 170px;
+  }
+}
+
+@media (max-width: 375px) {
+  .sidedrawer {
+    width: 300px;
+  }
+  .sidedrawer button {
+    margin-top: 25px;
+    margin-left: 100px;
+    position: absolute;
+  }
+}
