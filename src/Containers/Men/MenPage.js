@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./MenPage.css";
 import Spinner from "../../Components/UI/Spinner";
-import MenCards from "../../Components/UI/MenCards";
+import MenCard from "../../Components/UI/MenCard";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 import Aux from "../../hoc/Aux";
 
 class Men extends Component {
@@ -21,11 +22,22 @@ class Men extends Component {
       });
   }
 
+  cardSelectorHandler = (id) => {
+    this.props.history.push({
+      pathname: "/men/" + id,
+    });
+  };
+
   render() {
     return (
       <div className="all-cards">
         {this.state.cards ? (
-          this.state.cards.map((card) => <MenCards />)
+          this.state.cards.map((card) => (
+            <MenCard
+              key={card.id}
+              clicked={() => this.cardSelectorHandler(card.id)}
+            />
+          ))
         ) : (
           <Spinner />
         )}
