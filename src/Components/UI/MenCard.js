@@ -8,13 +8,13 @@ const MenCard = (props) => {
     <div onClick={props.clicked} className="card-base box-1">
       <div className="card-header box-1 ">
         <div className="box-1">
-          <img className="box-1" src="/images/t-shirt.jpeg" alt="men-picture" />
+          <img className="box-1" src={props.image} alt="men-picture" />
         </div>
       </div>
       <div className="card-body box-1">
-        <p>{props.name}It was popularised in the 1960s</p>
-        <p>{props.name}It was popularised in the 1960s</p>
-        <p>{props.name}It was popularised in the 1960s</p>
+        <p>{props.name}</p>
+        <p>{props.text}</p>
+        <p>{props.price}</p>
       </div>
     </div>
   );

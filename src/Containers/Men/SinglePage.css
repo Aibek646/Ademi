@@ -20,28 +20,3 @@
 .single-page .box {
   width: 27%;
 }
-
-#add-to-card {
-  background-color: #041e3a;
-  border-color: #041e3a;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 0;
-  color: #fff;
-  display: inline-block;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  margin: 15px 0 0;
-  padding: 15px 100px;
-  text-decoration: none;
-  line-height: 1.25rem;
-  cursor: pointer;
-  font-weight: 500;
-  font-style: normal;
-  transition: 0.5s;
-}
-
-#add-to-card:hover {
-  background-color: #fff;
-  color: #041e3a;
-}

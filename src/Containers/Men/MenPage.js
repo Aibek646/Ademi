@@ -35,6 +35,10 @@ class Men extends Component {
           this.state.cards.map((card) => (
             <MenCard
               key={card.id}
+              image={card.image}
+              name={card.name}
+              text={card.text}
+              price={card.price}
               clicked={() => this.cardSelectorHandler(card.id)}
             />
           ))

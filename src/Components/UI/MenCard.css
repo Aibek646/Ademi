@@ -1,7 +1,7 @@
 .box-1 {
-  width: 90%;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
+  width: 95%;
 }
 
 .card-base {
@@ -10,6 +10,16 @@
 
 .card-body {
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-self: center;
+}
+
+.card-body p {
+  margin: 0;
 }
 
 @media (max-width: 375px) {

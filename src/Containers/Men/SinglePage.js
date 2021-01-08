@@ -3,6 +3,7 @@ import axios from "axios";
 import Spinner from "../../Components/UI/Spinner";
 import MenCard from "../../Components/UI/MenCard";
 import Aux from "../../hoc/Aux";
+import Button from "../../Components/UI/buttonAdd";
 import "./SinglePage.css";
 
 class SinglePage extends Component {
@@ -23,6 +24,10 @@ class SinglePage extends Component {
       })
       .catch((err) => console.log(err));
   }
+
+  addToBad = () => {
+    this.props.history.push("/checkout");
+  };
 
   render() {
     console.log();
@@ -49,9 +54,7 @@ class SinglePage extends Component {
             <p>Soft Cotton Polo Shirt - All Fits</p>
             <p>$89.50</p>
             <p>color</p>
-            <button id="add-to-card" type="button">
-              ADD TO BAG
-            </button>
+            <Button clickedBtn={this.addToBad}>ADD TO BAG</Button>
           </div>
         </div>
       </div>

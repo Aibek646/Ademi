@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Men from "./Containers/Men/MenPage";
 import Main from "./Containers/Main";
 import SinglePage from "./Containers/Men/SinglePage";
+import Checkout from "./Containers/Checkout/Checkout";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Switch>
           <Route path="/men/:id" component={SinglePage} />
           <Route path="/men" component={Men} />
+          <Route path="/checkout" component={Checkout} />
           <Route path="/" exact component={Main} />
         </Switch>
       </Layout>
