@@ -22,43 +22,37 @@ class SinglePage extends Component {
         console.log(res.data);
         this.setState({ loadedPage: res.data });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => this.setState({ error: true }));
   }
 
-  addToBad = () => {
+  addToBag = () => {
     this.props.history.push("/checkout");
   };
 
   render() {
-    console.log();
     let page = this.state.error ? <Spinner /> : <p>Page can not be loaded</p>;
 
-    // if (this.state.loadedPage) {
-    //   page = (
-    //     <Aux>
-    //       <div>
-    //         <img src="./t-shirt.jpg" alt="t-shirt" />
-    //         <img src="./t-shirt.jpg" alt="t-shirt" />
-    //       </div>
-    //     </Aux>
-    //   );
-    // }
-
-    return (
-      <div>
-        <div className="single-page">
-          <img className="block-1 box" src="/images/polo.jpeg" />
-          <img className="block-2 box" src="/images/polo-shirt.jpeg" />
-          <div className="block-3 box">
-            <p>Polo Ralph Lauren</p>
-            <p>Soft Cotton Polo Shirt - All Fits</p>
-            <p>$89.50</p>
-            <p>color</p>
-            <Button clickedBtn={this.addToBad}>ADD TO BAG</Button>
+    if (this.state.loadedPage) {
+      page = (
+        <Aux>
+          <div>
+            <div className="single-page">
+              <img className="block-1 box" src={this.state.loadedPage.image} />
+              <img className="block-2 box" src={this.state.loadedPage.image2} />
+              <div className="block-3 box">
+                <p>Polo Ralph Lauren</p>
+                <p>Soft Cotton Polo Shirt - All Fits</p>
+                <p>$89.50</p>
+                <p>color</p>
+                <Button clickedBtn={this.addToBag}>ADD TO BAG</Button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    );
+        </Aux>
+      );
+    }
+
+    return page;
   }
 }
 
