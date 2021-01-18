@@ -31,7 +31,7 @@
   margin: 0;
   padding: 10px 50px;
   display: flex;
-  list-style: none;
+  justify-content: space-between;
   font-size: 18px;
 }
 
@@ -47,6 +47,9 @@
   background: #eee;
 }
 
+.icon {
+  padding-top: 25px;
+}
 /* .btn a:hover,
 .btn a:active {
   color: #40a4c8;

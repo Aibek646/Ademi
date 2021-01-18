@@ -4,11 +4,10 @@
   list-style: none;
   display: flex;
   flex-flow: column;
-  height: 100%;
 }
 
 @media (min-width: 500px) {
   .nav-items {
-    flex-flow: row;
+    flex-direction: row;
   }
 }

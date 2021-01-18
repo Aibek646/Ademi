@@ -1,25 +1,16 @@
 import React, { Component } from "react";
 import "./MenPage.css";
+import { connect } from "react-redux";
 import Spinner from "../../Components/UI/Spinner";
 import MenCard from "../../Components/UI/MenCard";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import Aux from "../../hoc/Aux";
+import * as actions from "../../store/actions/index";
 
 class Men extends Component {
-  state = {
-    cards: null,
-  };
-
   componentDidMount() {
-    axios
-      .get("https://ademi-bf204-default-rtdb.firebaseio.com/.json")
-      .then((res) => {
-        this.setState({ cards: res.data.cards });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.props.onFetchCards();
   }
 
   cardSelectorHandler = (id) => {
@@ -31,8 +22,8 @@ class Men extends Component {
   render() {
     return (
       <div className="all-cards">
-        {this.state.cards ? (
-          this.state.cards.map((card) => (
+        {this.props.cards ? (
+          this.props.cards.map((card) => (
             <MenCard
               key={card.id}
               image={card.image}
@@ -50,4 +41,16 @@ class Men extends Component {
   }
 }
 
-export default Men;
+const mapStateToProps = (state) => {
+  return {
+    cards: state.menPage.cards,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchCards: () => dispatch(actions.initCards()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Men);

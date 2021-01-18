@@ -4,6 +4,9 @@ import NavItems from "./NavItems";
 import Aux from "../../hoc/Aux";
 import SideDrawer from "../../Components/SideDrawer/SideDrawer";
 import Logo from "../UI/Logo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaShoppingBag } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
   return (
@@ -21,10 +24,18 @@ const Header = (props) => {
         </nav>
       </div>
       <div className="sub-header">
-        <h3 onClick={props.openDrawer} className="btn">
-          Shop
-        </h3>
-        <h3 className="btn">Discover</h3>
+        <div>
+          <h3 onClick={props.openDrawer} className="btn">
+            Shop
+          </h3>
+          <h3 className="btn">Discover</h3>
+        </div>
+
+        <div className="icon">
+          <Link to="/checkout">
+            <FaShoppingBag />
+          </Link>
+        </div>
       </div>
     </Aux>
   );

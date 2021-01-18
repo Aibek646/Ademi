@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./Checkout.css";
 import { connect } from "react-redux";
 import Button from "../../Components/UI/buttonAdd";
-import * as actionTypes from "../../store/actions";
+import axios from "axios";
+import * as actionCreators from "../../store/actions/index";
 
 class Checkout extends Component {
   state = {
@@ -36,7 +37,19 @@ class Checkout extends Component {
   //   });
   // };
 
+  componentDidMount() {
+    axios
+      .get(
+        `https://ademi-bf204-default-rtdb.firebaseio.com/cards/${this.props.match.params.id}.json`
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log);
+  }
+
   render() {
+    console.log(this.props.match.params.id);
     let disabledInfo = null;
     if (this.props.count <= 1) {
       disabledInfo = true;
@@ -80,15 +93,15 @@ class Checkout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    price: state.price,
-    count: state.count,
+    price: state.checkout.price,
+    count: state.checkout.count,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onCountAdded: () => dispatch({ type: actionTypes.ADD_SHIRT }),
-    onCountRemoved: () => dispatch({ type: actionTypes.REMOVE_SHIRT }),
+    onCountAdded: () => dispatch(actionCreators.addShirt()),
+    onCountRemoved: () => dispatch(actionCreators.removeShirt()),
   };
 };
 

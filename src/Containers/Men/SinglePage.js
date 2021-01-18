@@ -5,12 +5,15 @@ import MenCard from "../../Components/UI/MenCard";
 import Aux from "../../hoc/Aux";
 import Button from "../../Components/UI/buttonAdd";
 import "./SinglePage.css";
+import Modal from "../../Components/UI/Modal";
+import { FaThumbsDown } from "react-icons/fa";
 
 class SinglePage extends Component {
   state = {
     loadedPage: null,
     error: false,
     ordering: false,
+    modal: false,
   };
 
   componentDidMount() {
@@ -25,8 +28,48 @@ class SinglePage extends Component {
       .catch((err) => this.setState({ error: true }));
   }
 
-  addToBag = () => {
-    this.props.history.push("/checkout");
+  // addToBag = () => {
+  //   this.props.history.push({
+  //     pathname: `/checkout/${this.props.match.params.id}`,
+  //   });
+  // };
+
+  openModal = () => {
+    this.setState(
+      {
+        modal: !this.state.modal,
+      },
+      () => {
+        setTimeout(() => {
+          this.closeModal();
+        }, 4000);
+      }
+    );
+  };
+
+  closeModal = () => {
+    this.setState({
+      modal: false,
+    });
+  };
+
+  postShirts = (event) => {
+    event.preventDefault();
+    const order = {
+      shirt: this.state.loadedPage,
+    };
+    axios
+      .post(
+        "https://ademi-bf204-default-rtdb.firebaseio.com/orders.json/",
+        order
+      )
+      .then((res) => {
+        this.setState({ ordering: false }, () => {
+          this.openModal();
+        });
+      })
+      .catch((err) => console.log(err));
+    this.setState({ ordering: true });
   };
 
   render() {
@@ -44,9 +87,16 @@ class SinglePage extends Component {
                 <p>Soft Cotton Polo Shirt - All Fits</p>
                 <p>$89.50</p>
                 <p>color</p>
-                <Button clickedBtn={this.addToBag}>ADD TO BAG</Button>
+                {this.state.ordering ? (
+                  <Button>
+                    <Spinner />
+                  </Button>
+                ) : (
+                  <Button clickedBtn={this.postShirts}>ADD TO BAG</Button>
+                )}
               </div>
             </div>
+            <Modal show={this.state.modal} />
           </div>
         </Aux>
       );

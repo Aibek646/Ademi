@@ -5,8 +5,8 @@ import "./NavItems.css";
 const NavItems = (props) => {
   return (
     <ul className="nav-items">
-      <NavItem link="/login">Login</NavItem>
-      <NavItem link="/signin">Signin</NavItem>
+      <NavItem link="/login">Log In</NavItem>
+      <NavItem link="/signup">SignUp</NavItem>
       <NavItem link="/services">Services</NavItem>
     </ul>
   );

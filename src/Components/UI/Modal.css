@@ -1,0 +1,54 @@
+.modal-bg {
+  position: fixed;
+  left: 73%;
+  top: 10%;
+  width: 20%;
+  height: 30vh;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(0, 0, 0, 0);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s;
+  padding: 0;
+  border: rgba(200, 200, 200, 0.507) solid 2px;
+  border-radius: 10px;
+  background-color: whitesmoke;
+}
+
+.bg-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal {
+  background-color: whitesmoke;
+  position: absolute;
+  left: 40%;
+  width: 60%;
+
+  display: flex;
+  height: 59%;
+  border-radius: 10px;
+
+  flex-direction: column;
+}
+
+.modal p {
+  margin: 5px;
+  font-family: "Raleway", sans-serif;
+}
+
+.image {
+  width: 40%;
+  border-radius: 5px 0 0 5px;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+}
+
+.modal button {
+  position: absolute;
+  top: 100%;
+  right: 10%;
+}
