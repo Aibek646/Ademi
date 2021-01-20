@@ -5,7 +5,9 @@ import "./NavItem.css";
 const NavItem = (props) => {
   return (
     <li className="nav-item">
-      <NavLink to={props.link}>{props.children}</NavLink>
+      <NavLink onClick={props.clicked} to={props.link}>
+        {props.children}
+      </NavLink>
     </li>
   );
 };

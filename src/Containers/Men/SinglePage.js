@@ -64,12 +64,11 @@ class SinglePage extends Component {
         order
       )
       .then((res) => {
-        this.setState({ ordering: false }, () => {
-          this.openModal();
-        });
+        this.setState({ ordering: false });
       })
       .catch((err) => console.log(err));
     this.setState({ ordering: true });
+    this.openModal();
   };
 
   render() {
