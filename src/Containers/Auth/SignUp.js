@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import "./SignUp.css";
 import Input from "../../Components/UI/Input";
 import * as actions from "../../store/actions/index";
+import Spinner from "../../Components/UI/Spinner";
 import axios from "axios";
 
 class SignUp extends Component {
@@ -102,6 +103,11 @@ class SignUp extends Component {
       });
     }
 
+    let errorMessage = null;
+    if (this.props.error) {
+      errorMessage = <p>{this.props.error.message}</p>;
+    }
+
     return (
       <div className="background-modal">
         <div
@@ -127,17 +133,22 @@ class SignUp extends Component {
             </p>
           </div>
           <form className="input-field">
-            {formElementsArray.map((formElement) => (
-              <Input
-                key={formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}
-                changed={(event) =>
-                  this.inputChangedHandler(event, formElement.id)
-                }
-              />
-            ))}
+            {errorMessage}
+            {this.props.loading ? (
+              <Spinner />
+            ) : (
+              formElementsArray.map((formElement) => (
+                <Input
+                  key={formElement.id}
+                  elementType={formElement.config.elementType}
+                  elementConfig={formElement.config.elementConfig}
+                  value={formElement.config.value}
+                  changed={(event) =>
+                    this.inputChangedHandler(event, formElement.id)
+                  }
+                />
+              ))
+            )}
             <button onClick={this.signUpHandler}>Join</button>
           </form>
         </div>
@@ -145,6 +156,12 @@ class SignUp extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -153,4 +170,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -3,7 +3,6 @@ import "./MenCard.css";
 import { Link } from "react-router-dom";
 
 const MenCard = (props) => {
-  console.log(props);
   return (
     <div onClick={props.clicked} className="card-base box-1">
       <div className="card-header box-1 ">

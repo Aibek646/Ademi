@@ -1,30 +1,34 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  initPrice: 89,
-  price: 89,
-  count: 1,
-  orders: [],
+  loadedPage: null,
+  error: false,
+  ordering: false,
+  modal: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ADD_SHIRT:
+    case actionTypes.FETCH_SINGLE_PAGE_SUCCESS:
       return {
         ...state,
-        count: state.count + 1,
-        price: state.price + state.initPrice,
+        loadedPage: action.page,
       };
-    case actionTypes.REMOVE_SHIRT:
+    case actionTypes.FETCH_SINGLE_PAGE_FAILED:
       return {
         ...state,
-        count: state.count - 1,
-        price: state.price - state.initPrice,
+        error: true,
+      };
+    case actionTypes.PURCHASE_SHIRT_START:
+      return {
+        ...state,
+        ordering: true,
       };
     case actionTypes.FETCH_ORDERS_SUCCESS:
       return {
         ...state,
-        orders: action.orders,
+        ordering: false,
+        modal: true,
       };
     default:
       return state;

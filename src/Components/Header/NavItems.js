@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavItem from "../Header/NavItem";
 import "./NavItems.css";
 import SignUpModal from "../../Containers/Auth/SignUp";
-import LoginModal from "../../Containers/Auth/Login";
+import LoginModal from "../../Containers/Auth/Login2";
 import Aux from "../../hoc/Aux";
 
 class NavItems extends Component {

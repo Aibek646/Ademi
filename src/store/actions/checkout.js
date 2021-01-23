@@ -12,3 +12,40 @@ export const removeShirt = () => {
     type: actionTypes.REMOVE_SHIRT,
   };
 };
+
+export const fetchOrdersSuccess = (orders) => {
+  return {
+    type: actionTypes.FETCH_ORDERS_SUCCESS,
+    orders: orders,
+  };
+};
+
+export const fetchOrdersFailed = () => {
+  return {
+    type: actionTypes.FETCH_ORDERS_FAILED,
+  };
+};
+
+export const fetchOrders = (token) => {
+  return (dispatch) => {
+    axios
+      .get(
+        "https://ademi-bf204-default-rtdb.firebaseio.com/orders.json?auth=" +
+          token
+      )
+      .then((res) => {
+        const fetchOrders = [];
+        for (let key in res.data) {
+          fetchOrders.push({
+            ...res.data[key]["shirt"],
+            id: key,
+          });
+        }
+        console.log(fetchOrders);
+        dispatch(fetchOrdersSuccess(fetchOrders));
+      })
+      .catch((err) => {
+        dispatch(fetchOrdersFailed());
+      });
+  };
+};

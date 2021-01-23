@@ -19,7 +19,6 @@ export const initCards = () => {
     axios
       .get("https://ademi-bf204-default-rtdb.firebaseio.com/cards.json")
       .then((response) => {
-        console.log(response);
         dispatch(setCards(response.data));
       })
       .catch((error) => {

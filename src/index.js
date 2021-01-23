@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import checkoutReducer from "./store/reducers/checkout";
 import menPageReducer from "./store/reducers/menPage";
+import authReducer from "./store/reducers/auth";
+import singlePageReducer from "./store/reducers/singlePage";
 import thunk from "redux-thunk";
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -16,6 +18,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducers = combineReducers({
   checkout: checkoutReducer,
   menPage: menPageReducer,
+  auth: authReducer,
+  singlePage: singlePageReducer,
 });
 
 const store = createStore(

@@ -7,10 +7,11 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (authData) => {
+export const authSuccess = (token, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    authData: authData,
+    idToken: token,
+    userId: userId,
   };
 };
 
@@ -21,10 +22,24 @@ export const authFail = (error) => {
   };
 };
 
+export const checkAuthTimeout = (expirationTime) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime * 1000);
+  };
+};
+
+export const logout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT,
+  };
+};
+
 export const auth = (orderData, isSignup) => {
   return (dispatch) => {
     dispatch(authStart());
-    console.log(orderData);
+
     const authData = {
       email: orderData.orderData.email,
       password: orderData.orderData.password,
@@ -40,11 +55,12 @@ export const auth = (orderData, isSignup) => {
       .post(url, authData)
       .then((res) => {
         console.log(res);
-        dispatch(authSuccess(res.data));
+        dispatch(authSuccess(res.data.idToken, res.data.localId));
+        dispatch(checkAuthTimeout(res.data.expiresIn));
       })
       .catch((err) => {
-        console.log(err);
-        dispatch(authFail(err));
+        console.log(err.response.data);
+        dispatch(authFail(err.response.data.error));
       });
   };
 };

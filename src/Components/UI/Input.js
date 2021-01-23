@@ -1,7 +1,9 @@
 import React from "react";
+import "./Input.css";
 
 const input = (props) => {
   let inputElement = null;
+
   switch (props.elementType) {
     case "input":
       inputElement = (
@@ -16,6 +18,7 @@ const input = (props) => {
     case "password":
       inputElement = (
         <input
+          className="inputElement"
           type="password"
           {...props.elementConfig}
           value={props.value}
@@ -26,6 +29,7 @@ const input = (props) => {
     case "email":
       inputElement = (
         <input
+          className="inputElement"
           type="email"
           {...props.elementConfig}
           value={props.value}
