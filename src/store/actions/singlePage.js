@@ -35,18 +35,18 @@ export const purchaseShirtFailed = (error) => {
   };
 };
 
-export const openModal = () => {
-  this.setState(
-    {
-      modal: !this.state.modal,
-    },
-    () => {
-      setTimeout(() => {
-        this.closeModal();
-      }, 4000);
-    }
-  );
-};
+// export const openModal = () => {
+//   this.setState(
+//     {
+//       modal: !this.state.modal,
+//     },
+//     () => {
+//       setTimeout(() => {
+//         this.closeModal();
+//       }, 4000);
+//     }
+//   );
+// };
 
 export const openModal = () => {
   return {
@@ -54,11 +54,25 @@ export const openModal = () => {
   };
 };
 
-closeModal = () => {
-  this.setState({
-    modal: false,
-  });
+export const closeModal = () => {
+  return {
+    type: actions.CLOSE_MODAL,
+  };
 };
+
+export const initCloseModal = () => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(closeModal());
+    }, 4000);
+  };
+};
+
+// closeModal = () => {
+//   this.setState({
+//     modal: false,
+//   });
+// };
 
 export const initSinglePage = (id) => {
   return (dispatch) => {
@@ -74,19 +88,24 @@ export const initSinglePage = (id) => {
   };
 };
 
-export const purchaseShirt = (order) => {
+export const purchaseShirt = (order, token) => {
   return (dispatch) => {
     dispatch(purchaseShirtStart());
     axios
       .post(
-        "https://ademi-bf204-default-rtdb.firebaseio.com/orders.json",
+        "https://ademi-bf204-default-rtdb.firebaseio.com/orders.json?auth=" +
+          token,
         order
       )
       .then((res) => {
         dispatch(purchaseShirtSuccess(res.data.name, order));
+        dispatch(openModal());
+        dispatch(initCloseModal());
+        console.log(res);
       })
       .catch((error) => {
         dispatch(purchaseShirtFailed(error));
+        dispatch(initCloseModal());
       });
   };
 };

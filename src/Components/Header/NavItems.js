@@ -3,6 +3,7 @@ import NavItem from "../Header/NavItem";
 import "./NavItems.css";
 import SignUpModal from "../../Containers/Auth/SignUp";
 import LoginModal from "../../Containers/Auth/Login2";
+import { connect } from "react-redux";
 import Aux from "../../hoc/Aux";
 
 class NavItems extends Component {
@@ -26,12 +27,18 @@ class NavItems extends Component {
     return (
       <Aux>
         <ul className="nav-items">
-          <NavItem clicked={this.openLogin} link="#">
-            Log In
-          </NavItem>
-          <NavItem clicked={this.openSignUp} link="#">
-            SignUp
-          </NavItem>
+          {!this.props.isAuthenticated ? (
+            <NavItem clicked={this.openLogin} link="#">
+              Log In
+            </NavItem>
+          ) : (
+            <NavItem link="/logout">LogOut</NavItem>
+          )}
+          {!this.props.isAuthenticated ? (
+            <NavItem clicked={this.openSignUp} link="#">
+              SignUp
+            </NavItem>
+          ) : null}
           <NavItem link="/services">Services</NavItem>
         </ul>
 
@@ -46,4 +53,10 @@ class NavItems extends Component {
   }
 }
 
-export default NavItems;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+  };
+};
+
+export default connect(mapStateToProps)(NavItems);

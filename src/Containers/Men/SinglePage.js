@@ -13,24 +13,24 @@ class SinglePage extends Component {
     this.props.onInitSinglePage(this.props.match.params.id);
   }
 
-  openModal = () => {
-    this.setState(
-      {
-        modal: !this.state.modal,
-      },
-      () => {
-        setTimeout(() => {
-          this.closeModal();
-        }, 4000);
-      }
-    );
-  };
+  // openModal = () => {
+  //   this.setState(
+  //     {
+  //       modal: !this.state.modal,
+  //     },
+  //     () => {
+  //       setTimeout(() => {
+  //         this.closeModal();
+  //       }, 4000);
+  //     }
+  //   );
+  // };
 
-  closeModal = () => {
-    this.setState({
-      modal: false,
-    });
-  };
+  // closeModal = () => {
+  //   this.setState({
+  //     modal: false,
+  //   });
+  // };
 
   postShirts = (event) => {
     event.preventDefault();
@@ -50,7 +50,7 @@ class SinglePage extends Component {
     //     });
     //   })
     //   .catch((err) => console.log(err));
-    this.props.onInitPurchase(order);
+    this.props.onInitPurchase(order, this.props.token);
   };
 
   render() {
@@ -92,13 +92,16 @@ const mapStateToProps = (state) => {
     loadedPage: state.singlePage.loadedPage,
     error: state.singlePage.error,
     ordering: state.singlePage.ordering,
+    modal: state.singlePage.modal,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onInitSinglePage: (id) => dispatch(actions.initSinglePage(id)),
-    onInitPurchase: (order, id) => dispatch(actions.purchaseShirt(order)),
+    onInitPurchase: (order, token) =>
+      dispatch(actions.purchaseShirt(order, token)),
   };
 };
 

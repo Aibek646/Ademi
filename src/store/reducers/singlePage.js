@@ -24,11 +24,26 @@ const reducer = (state = initialState, action) => {
         ...state,
         ordering: true,
       };
-    case actionTypes.FETCH_ORDERS_SUCCESS:
+    case actionTypes.PURCHASE_SHIRT_SUCCESS:
       return {
         ...state,
         ordering: false,
         modal: true,
+      };
+    case actionTypes.PURCHASE_SHIRT_FAILED:
+      return {
+        ...state,
+        modal: false,
+      };
+    case actionTypes.OPEN_MODAL:
+      return {
+        ...state,
+        modal: true,
+      };
+    case actionTypes.CLOSE_MODAL:
+      return {
+        ...state,
+        modal: false,
       };
     default:
       return state;

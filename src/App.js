@@ -5,6 +5,7 @@ import Men from "./Containers/Men/MenPage";
 import Main from "./Containers/Main";
 import SinglePage from "./Containers/Men/SinglePage";
 import Checkout from "./Containers/Checkout/Checkout";
+import Logout from "./Containers/Auth/Logout";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/men/:id" component={SinglePage} />
           <Route path="/men" component={Men} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/logout" component={Logout} />
           <Route path="/" exact component={Main} />
         </Switch>
       </Layout>
