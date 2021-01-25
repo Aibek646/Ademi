@@ -43,7 +43,7 @@ class Checkout extends Component {
     //   .get("https://ademi-bf204-default-rtdb.firebaseio.com/orders.json")
     //   .then((res) => console.log(res))
     //   .catch((err) => console.log(err));
-    this.props.onInitOrders(this.props.token);
+    this.props.onInitOrders(this.props.token, this.props.userId);
   }
 
   render() {
@@ -109,6 +109,7 @@ const mapStateToProps = (state) => {
     count: state.checkout.count,
     token: state.auth.token,
     orders: state.checkout.orders,
+    userId: state.auth.userId,
   };
 };
 
@@ -116,7 +117,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onCountAdded: () => dispatch(actionCreators.addShirt()),
     onCountRemoved: () => dispatch(actionCreators.removeShirt()),
-    onInitOrders: (token) => dispatch(actionCreators.fetchOrders(token)),
+    onInitOrders: (token, userId) =>
+      dispatch(actionCreators.fetchOrders(token, userId)),
   };
 };
 

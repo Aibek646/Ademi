@@ -26,12 +26,14 @@ export const fetchOrdersFailed = () => {
   };
 };
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token, userId) => {
   return (dispatch) => {
+    const queryParams =
+      "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
     axios
       .get(
-        "https://ademi-bf204-default-rtdb.firebaseio.com/orders.json?auth=" +
-          token
+        "https://ademi-bf204-default-rtdb.firebaseio.com/orders.json" +
+          queryParams
       )
       .then((res) => {
         const fetchOrders = [];

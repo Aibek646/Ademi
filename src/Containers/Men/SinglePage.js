@@ -22,6 +22,7 @@ class SinglePage extends Component {
       event.preventDefault();
       const order = {
         shirt: this.props.loadedPage,
+        userId: this.props.userId,
       };
       this.props.onInitPurchase(order, this.props.token);
     } else {
@@ -80,6 +81,7 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
     isAuthenticated: state.auth.token !== null,
     login: state.auth.login,
+    userId: state.auth.userId,
   };
 };
 
