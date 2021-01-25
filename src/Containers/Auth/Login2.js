@@ -4,6 +4,7 @@ import Input from "../../Components/UI/Input";
 import * as actions from "../../store/actions/index";
 import Spinner from "../../Components/UI/Spinner";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 class Login2 extends Component {
   state = {
@@ -40,6 +41,8 @@ class Login2 extends Component {
     isSignup: false,
   };
 
+  componentDidMount() {}
+
   inputChangedHandler = (event, inputIdentifier) => {
     const updatedSignUpForm = {
       ...this.state.signUpForm,
@@ -54,7 +57,7 @@ class Login2 extends Component {
     });
   };
 
-  signUpHandler = (event) => {
+  signInHandler = (event) => {
     event.preventDefault();
     const formData = {};
     for (let forElementIdentifier in this.state.signUpForm) {
@@ -83,8 +86,14 @@ class Login2 extends Component {
       errorMessage = <p>{this.props.error.message}</p>;
     }
 
+    let authRedirect = null;
+    if (this.props.isAuthenticated) {
+      authRedirect = <Redirect to={this.props.authRedirectPath} />;
+    }
+
     return (
       <div className="background-modal">
+        {authRedirect}
         <div
           className="big-login"
           style={{
@@ -127,7 +136,7 @@ class Login2 extends Component {
                 );
               })
             )}
-            <button onClick={this.signUpHandler}>Login</button>
+            <button onClick={this.signInHandler}>Login</button>
           </div>
         </div>
       </div>
@@ -139,6 +148,8 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    isAuthenticated: state.auth.token !== null,
+    authRedirectPath: state.auth.authRedirectPath,
   };
 };
 
@@ -147,6 +158,7 @@ const mapDispatchToProps = (dispatch) => {
     onLogin: (orderData, isSignup) => {
       dispatch(actions.auth(orderData, isSignup));
     },
+    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/")),
   };
 };
 

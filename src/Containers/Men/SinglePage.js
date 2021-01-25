@@ -13,44 +13,21 @@ class SinglePage extends Component {
     this.props.onInitSinglePage(this.props.match.params.id);
   }
 
-  // openModal = () => {
-  //   this.setState(
-  //     {
-  //       modal: !this.state.modal,
-  //     },
-  //     () => {
-  //       setTimeout(() => {
-  //         this.closeModal();
-  //       }, 4000);
-  //     }
-  //   );
-  // };
-
-  // closeModal = () => {
-  //   this.setState({
-  //     modal: false,
-  //   });
-  // };
+  openLogin = () => {
+    this.props.onLoginOpen();
+  };
 
   postShirts = (event) => {
-    event.preventDefault();
-    const order = {
-      shirt: this.props.loadedPage,
-    };
-
-    // axios
-    //   .post(
-    //     "https://ademi-bf204-default-rtdb.firebaseio.com/orders.json?",
-    //     order
-    //   )
-    //   .then((res) => {
-    //     this.setState({ ordering: false }, () => {
-    //       this.setState({ ordering: true });
-    //       this.openModal();
-    //     });
-    //   })
-    //   .catch((err) => console.log(err));
-    this.props.onInitPurchase(order, this.props.token);
+    if (this.props.isAuthenticated) {
+      event.preventDefault();
+      const order = {
+        shirt: this.props.loadedPage,
+      };
+      this.props.onInitPurchase(order, this.props.token);
+    } else {
+      this.props.onSetAuthRedirectPath("/checkout");
+      this.openLogin();
+    }
   };
 
   render() {
@@ -73,7 +50,14 @@ class SinglePage extends Component {
                     <Spinner />
                   </Button>
                 ) : (
-                  <Button clickedBtn={this.postShirts}>ADD TO BAG</Button>
+                  <Button
+                    // disabled={this.props.isAuthenticated}
+                    clickedBtn={this.postShirts}
+                  >
+                    {this.props.isAuthenticated
+                      ? "ADD TO BAG"
+                      : "SIGN UP TO ORDER"}
+                  </Button>
                 )}
               </div>
             </div>
@@ -94,6 +78,8 @@ const mapStateToProps = (state) => {
     ordering: state.singlePage.ordering,
     modal: state.singlePage.modal,
     token: state.auth.token,
+    isAuthenticated: state.auth.token !== null,
+    login: state.auth.login,
   };
 };
 
@@ -102,6 +88,9 @@ const mapDispatchToProps = (dispatch) => {
     onInitSinglePage: (id) => dispatch(actions.initSinglePage(id)),
     onInitPurchase: (order, token) =>
       dispatch(actions.purchaseShirt(order, token)),
+    onLoginOpen: () => dispatch(actions.openLogin()),
+    onSetAuthRedirectPath: (path) =>
+      dispatch(actions.setAuthRedirectPath(path)),
   };
 };
 

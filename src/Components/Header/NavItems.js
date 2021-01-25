@@ -5,6 +5,7 @@ import SignUpModal from "../../Containers/Auth/SignUp";
 import LoginModal from "../../Containers/Auth/Login2";
 import { connect } from "react-redux";
 import Aux from "../../hoc/Aux";
+import * as actions from "../../store/actions/index";
 
 class NavItems extends Component {
   state = {
@@ -13,28 +14,24 @@ class NavItems extends Component {
   };
 
   openSignUp = () => {
-    this.setState({
-      signUp: !this.state.signUp,
-    });
+    this.props.onSignOpen();
   };
 
   openLogin = () => {
-    this.setState({
-      login: !this.state.login,
-    });
+    this.props.onLoginOpen();
   };
   render() {
     return (
       <Aux>
         <ul className="nav-items">
-          {!this.props.isAuthenticated ? (
+          {!this.props.isAuth ? (
             <NavItem clicked={this.openLogin} link="#">
               Log In
             </NavItem>
           ) : (
             <NavItem link="/logout">LogOut</NavItem>
           )}
-          {!this.props.isAuthenticated ? (
+          {!this.props.isAuth ? (
             <NavItem clicked={this.openSignUp} link="#">
               SignUp
             </NavItem>
@@ -42,11 +39,11 @@ class NavItems extends Component {
           <NavItem link="/services">Services</NavItem>
         </ul>
 
-        {this.state.signUp ? (
-          <SignUpModal show={this.state.signUp} closed={this.openSignUp} />
+        {this.props.signUp ? (
+          <SignUpModal show={this.props.signUp} closed={this.openSignUp} />
         ) : null}
-        {this.state.login ? (
-          <LoginModal closed={this.openLogin} show={this.state.login} />
+        {this.props.login ? (
+          <LoginModal closed={this.openLogin} show={this.props.login} />
         ) : null}
       </Aux>
     );
@@ -55,8 +52,16 @@ class NavItems extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null,
+    login: state.auth.login,
+    signUp: state.auth.signUp,
   };
 };
 
-export default connect(mapStateToProps)(NavItems);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoginOpen: () => dispatch(actions.openLogin()),
+    onSignOpen: () => dispatch(actions.openSignUp()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavItems);

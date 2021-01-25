@@ -6,6 +6,10 @@ const initialState = {
   userId: null,
   error: null,
   loading: false,
+  login: false,
+  signUp: false,
+  redirect: false,
+  authRedirectPath: "/",
 };
 
 const authStart = (state, action) => {
@@ -18,6 +22,9 @@ const authSuccess = (state, action) => {
     userId: action.userId,
     error: null,
     loading: false,
+    login: false,
+    signUp: false,
+    redirect: true,
   });
 };
 
@@ -28,8 +35,26 @@ const authFail = (state, action) => {
   });
 };
 
+const openLogin = (state, action) => {
+  return updateObject(state, {
+    login: !state.login,
+  });
+};
+
+const openSignUp = (state, action) => {
+  return updateObject(state, {
+    signUp: !state.signUp,
+  });
+};
+
+const setAuthRedirectPath = (state, action) => {
+  return updateObject(state, {
+    authRedirectPath: action.path,
+  });
+};
+
 const authLogout = (state, action) => {
-  return updateObject(state, { token: null, userId: null });
+  return updateObject(state, { token: null, userId: null, redirect: false });
 };
 
 const reducer = (state = initialState, action) => {
@@ -42,6 +67,12 @@ const reducer = (state = initialState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
+    case actionTypes.OPEN_LOGIN:
+      return openLogin(state, action);
+    case actionTypes.OPEN_SIGNUP:
+      return openSignUp(state, action);
+    case actionTypes.SET_AUTH_REDIRECT_PATH:
+      return setAuthRedirectPath(state, action);
     default:
       return state;
   }

@@ -6,7 +6,7 @@ import SideDrawer from "../../Components/SideDrawer/SideDrawer";
 import Logo from "../UI/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FaShoppingBag } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const Header = (props) => {
   return (
@@ -20,7 +20,7 @@ const Header = (props) => {
 
         <Logo />
         <nav className="desktop-only">
-          <NavItems />
+          <NavItems isAuth={props.isAuthenticated} />
         </nav>
       </div>
       <div className="sub-header">
@@ -32,9 +32,11 @@ const Header = (props) => {
         </div>
 
         <div className="icon">
-          <Link to="/checkout">
-            <FaShoppingBag />
-          </Link>
+          {props.isAuthenticated ? (
+            <Link to="/checkout">
+              <FaShoppingBag />
+            </Link>
+          ) : null}
         </div>
       </div>
     </Aux>

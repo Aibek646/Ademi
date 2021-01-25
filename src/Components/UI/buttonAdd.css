@@ -22,3 +22,8 @@
   background-color: #fff;
   color: #041e3a;
 }
+
+#add-to-card:disabled {
+  background-color: #c7c6c6;
+  cursor: not-allowed;
+}

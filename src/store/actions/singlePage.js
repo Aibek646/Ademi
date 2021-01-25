@@ -68,12 +68,6 @@ export const initCloseModal = () => {
   };
 };
 
-// closeModal = () => {
-//   this.setState({
-//     modal: false,
-//   });
-// };
-
 export const initSinglePage = (id) => {
   return (dispatch) => {
     axios
